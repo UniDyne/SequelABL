@@ -8,18 +8,18 @@
 */
 DEFINE TEMP-TABLE ttProduct NO-UNDO
 	FIELD sku AS CHAR
-    FIELD name AS CHAR
-    FIELD upc AS CHAR
-    FIELD isbn AS CHAR
-    FIELD mpn AS CHAR
-    FIELD primary_supplier AS CHAR
-    FIELD active AS LOG
-    FIELD cansell AS LOG
-    FIELD discontinued AS LOG
-    FIELD disc_date AS DATE
-    FIELD nobackorder AS LOG
-    FIELD candropship AS LOG
-    FIELD mustdropship AS LOG
+	FIELD name AS CHAR
+	FIELD upc AS CHAR
+	FIELD isbn AS CHAR
+	FIELD mpn AS CHAR
+	FIELD primary_supplier AS CHAR
+	FIELD active AS LOG
+	FIELD cansell AS LOG
+	FIELD discontinued AS LOG
+	FIELD disc_date AS DATE
+	FIELD nobackorder AS LOG
+	FIELD candropship AS LOG
+	FIELD mustdropship AS LOG
 	FIELD composite AS LOG
 	.
 
@@ -30,18 +30,18 @@ FOR EACH product WHERE product.SYSTEM-ID = {&sysid} AND product.active = YES NO-
 	CREATE ttProduct.
 	ASSIGN
 		ttProduct.sku = TRIM(product.product-code)
-        ttProduct.upc = TRIM(TRIM(product.upc-code," "))
-        ttProduct.isbn = REPLACE(product.usr-def-fld-9,"-","")
-
+		ttProduct.upc = TRIM(TRIM(product.upc-code," "))
+		ttProduct.isbn = REPLACE(product.usr-def-fld-9,"-","")
+		
 		ttProduct.name = TRIM(product.product-name)
-
+		
 		ttProduct.active = product.active
-        ttProduct.discontinued = product.discontinued
-        ttProduct.disc_date = product.discontinued-date
-        ttProduct.cansell = oe-prod-location.can-be-sold
-        ttProduct.composite = oe-prod-location.buying-path-build
-        ttProduct.candropship = oe-prod-location.drop-ship-allowed
-        ttProduct.mustdropship = oe-prod-location.must-drop-ship
+		ttProduct.discontinued = product.discontinued
+		ttProduct.disc_date = product.discontinued-date
+		ttProduct.cansell = oe-prod-location.can-be-sold
+		ttProduct.composite = oe-prod-location.buying-path-build
+		ttProduct.candropship = oe-prod-location.drop-ship-allowed
+		ttProduct.mustdropship = oe-prod-location.must-drop-ship
 		.
 
 END.
